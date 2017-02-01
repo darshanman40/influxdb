@@ -3,7 +3,7 @@ package tsm1
 import (
 	"sync"
 
-	"github.com/influxdata/influxdb/pkg/pool"
+	"github.com/influxdb/pkg/pool"
 )
 
 var (

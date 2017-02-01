@@ -13,9 +13,9 @@ import (
 	"time"
 
 	"github.com/davecgh/go-spew/spew"
-	"github.com/influxdata/influxdb/internal"
-	"github.com/influxdata/influxdb/models"
-	"github.com/influxdata/influxdb/services/meta"
+	"github.com/influxdb/internal"
+	"github.com/influxdb/models"
+	"github.com/influxdb/services/meta"
 	"go.uber.org/zap"
 )
 

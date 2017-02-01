@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/influxdata/influxdb/tsdb/engine/tsm1"
+	"github.com/influxdb/tsdb/engine/tsm1"
 	"go.uber.org/zap"
 )
 

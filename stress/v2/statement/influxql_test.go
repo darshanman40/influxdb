@@ -3,7 +3,7 @@ package statement
 import (
 	"testing"
 
-	"github.com/influxdata/influxdb/stress/v2/stress_client"
+	"github.com/influxdb/stress/v2/stress_client"
 )
 
 func TestInfluxQlSetID(t *testing.T) {

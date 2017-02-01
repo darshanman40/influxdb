@@ -4,7 +4,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/influxdata/influxdb/toml"
+	"github.com/influxdb/toml"
 )
 
 // Default values for aspects of interval computation.

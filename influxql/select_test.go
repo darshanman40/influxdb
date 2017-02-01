@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/davecgh/go-spew/spew"
-	"github.com/influxdata/influxdb/influxql"
-	"github.com/influxdata/influxdb/pkg/deep"
+	"github.com/influxdb/influxql"
+	"github.com/influxdb/pkg/deep"
 )
 
 // Second represents a helper for type converting durations.

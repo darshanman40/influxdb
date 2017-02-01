@@ -1,5 +1,5 @@
 // Package cli contains the logic of the influx command line client.
-package cli // import "github.com/influxdata/influxdb/cmd/influx/cli"
+package cli // import "github.com/influxdb/cmd/influx/cli"
 
 import (
 	"bytes"
@@ -21,10 +21,10 @@ import (
 
 	"golang.org/x/crypto/ssh/terminal"
 
-	"github.com/influxdata/influxdb/client"
-	"github.com/influxdata/influxdb/importer/v8"
-	"github.com/influxdata/influxdb/influxql"
-	"github.com/influxdata/influxdb/models"
+	"github.com/influxdb/client"
+	"github.com/influxdb/importer/v8"
+	"github.com/influxdb/influxql"
+	"github.com/influxdb/models"
 	"github.com/peterh/liner"
 )
 

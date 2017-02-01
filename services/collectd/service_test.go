@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/influxdata/influxdb/internal"
-	"github.com/influxdata/influxdb/models"
-	"github.com/influxdata/influxdb/services/meta"
-	"github.com/influxdata/influxdb/toml"
+	"github.com/influxdb/internal"
+	"github.com/influxdb/models"
+	"github.com/influxdb/services/meta"
+	"github.com/influxdb/toml"
 	"go.uber.org/zap"
 )
 

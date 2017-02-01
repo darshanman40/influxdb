@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/influxdata/influxdb/toml"
+	"github.com/influxdb/toml"
 )
 
 const (

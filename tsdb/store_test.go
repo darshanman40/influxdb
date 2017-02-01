@@ -11,10 +11,10 @@ import (
 	"time"
 
 	"github.com/davecgh/go-spew/spew"
-	"github.com/influxdata/influxdb/influxql"
-	"github.com/influxdata/influxdb/models"
-	"github.com/influxdata/influxdb/pkg/deep"
-	"github.com/influxdata/influxdb/tsdb"
+	"github.com/influxdb/influxql"
+	"github.com/influxdb/models"
+	"github.com/influxdb/pkg/deep"
+	"github.com/influxdb/tsdb"
 )
 
 // Ensure the store can delete a retention policy and all shards under

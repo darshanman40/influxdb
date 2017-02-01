@@ -1,5 +1,5 @@
 // Package client (v2) is the current official Go client for InfluxDB.
-package client // import "github.com/influxdata/influxdb/client/v2"
+package client // import "github.com/influxdb/client/v2"
 
 import (
 	"bytes"
@@ -12,7 +12,7 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/influxdata/influxdb/models"
+	"github.com/influxdb/models"
 )
 
 // HTTPConfig is the config data needed to create an HTTP Client.

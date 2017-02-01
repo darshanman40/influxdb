@@ -15,20 +15,20 @@ import (
 	"time"
 
 	"github.com/BurntSushi/toml"
-	"github.com/influxdata/influxdb/coordinator"
-	"github.com/influxdata/influxdb/monitor"
-	"github.com/influxdata/influxdb/services/admin"
-	"github.com/influxdata/influxdb/services/collectd"
-	"github.com/influxdata/influxdb/services/continuous_querier"
-	"github.com/influxdata/influxdb/services/graphite"
-	"github.com/influxdata/influxdb/services/httpd"
-	"github.com/influxdata/influxdb/services/meta"
-	"github.com/influxdata/influxdb/services/opentsdb"
-	"github.com/influxdata/influxdb/services/precreator"
-	"github.com/influxdata/influxdb/services/retention"
-	"github.com/influxdata/influxdb/services/subscriber"
-	"github.com/influxdata/influxdb/services/udp"
-	"github.com/influxdata/influxdb/tsdb"
+	"github.com/influxdb/coordinator"
+	"github.com/influxdb/monitor"
+	"github.com/influxdb/services/admin"
+	"github.com/influxdb/services/collectd"
+	"github.com/influxdb/services/continuous_querier"
+	"github.com/influxdb/services/graphite"
+	"github.com/influxdb/services/httpd"
+	"github.com/influxdb/services/meta"
+	"github.com/influxdb/services/opentsdb"
+	"github.com/influxdb/services/precreator"
+	"github.com/influxdb/services/retention"
+	"github.com/influxdb/services/subscriber"
+	"github.com/influxdb/services/udp"
+	"github.com/influxdb/tsdb"
 )
 
 const (
@@ -111,7 +111,7 @@ func NewDemoConfig() (*Config, error) {
 
 // trimBOM trims the Byte-Order-Marks from the beginning of the file.
 // This is for Windows compatability only.
-// See https://github.com/influxdata/telegraf/issues/1378.
+// See https://github.com/influxdb/telegraf/issues/1378.
 func trimBOM(f []byte) []byte {
 	return bytes.TrimPrefix(f, []byte("\xef\xbb\xbf"))
 }

@@ -9,12 +9,12 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/influxdata/influxdb"
-	"github.com/influxdata/influxdb/influxql"
-	"github.com/influxdata/influxdb/models"
-	"github.com/influxdata/influxdb/monitor"
-	"github.com/influxdata/influxdb/services/meta"
-	"github.com/influxdata/influxdb/tsdb"
+	"github.com/influxdb"
+	"github.com/influxdb/influxql"
+	"github.com/influxdb/models"
+	"github.com/influxdb/monitor"
+	"github.com/influxdb/services/meta"
+	"github.com/influxdb/tsdb"
 )
 
 // ErrDatabaseNameRequired is returned when executing statements that require a database,
