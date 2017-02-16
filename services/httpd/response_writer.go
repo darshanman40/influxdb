@@ -8,7 +8,9 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/gogo/protobuf/proto"
 	"github.com/influxdb/models"
+	"github.com/influxdb/services/httpd/internal"
 )
 
 // ResponseWriter is an interface for writing a response.
@@ -28,6 +30,11 @@ func NewResponseWriter(w http.ResponseWriter, r *http.Request) ResponseWriter {
 	case "application/csv", "text/csv":
 		w.Header().Add("Content-Type", "text/csv")
 		rw.formatter = &csvFormatter{statementID: -1, Writer: w}
+
+	case "application/x-protobuf", "application/octet-stream":
+		w.Header().Add("Content-Type", "application/x-protobuf")
+		rw.formatter = &protoFormatter{Writer: w}
+
 	case "application/json":
 		fallthrough
 	default:
@@ -78,6 +85,7 @@ type jsonFormatter struct {
 
 func (w *jsonFormatter) WriteResponse(resp Response) (n int, err error) {
 	var b []byte
+
 	if w.Pretty {
 		b, err = json.MarshalIndent(resp, "", "    ")
 	} else {
@@ -92,6 +100,103 @@ func (w *jsonFormatter) WriteResponse(resp Response) (n int, err error) {
 
 	w.Write([]byte("\n"))
 	n++
+	return n, err
+}
+
+type protoFormatter struct {
+	io.Writer
+}
+
+func (w *protoFormatter) WriteResponse(resp Response) (n int, err error) {
+
+	var b []byte
+
+	res := make([]*internal.InfluxResponse, len(resp.Results))
+	for i, r := range resp.Results {
+		id := int32(r.StatementID)
+		protoRows := make([]*internal.Row, len(r.Series))
+		for j, row := range r.Series {
+			pValues := make([]*internal.Values, len(row.Values))
+
+			for k, rowValues := range row.Values {
+				protoValue := make([]*internal.Value, len(rowValues))
+
+				for l, rowValue := range rowValues {
+					switch v := rowValue.(type) {
+					case string:
+						protoValue[l] = &internal.Value{
+							DataType:    proto.Int32(1),
+							StringValue: proto.String(v),
+						}
+					case int64:
+						protoValue[l] = &internal.Value{
+							DataType:     proto.Int32(2),
+							IntegerValue: proto.Int64(v),
+						}
+					case float64:
+						protoValue[l] = &internal.Value{
+							DataType:   proto.Int32(3),
+							FloatValue: proto.Float64(v),
+						}
+					case bool:
+						protoValue[l] = &internal.Value{
+							DataType:  proto.Int32(4),
+							BoolValue: proto.Bool(v),
+						}
+					default:
+						protoValue[l] = &internal.Value{
+							DataType: proto.Int32(7),
+						}
+					}
+				}
+				pValues[k] = &internal.Values{
+					Value: protoValue,
+				}
+
+			}
+
+			protoRows[j] = &internal.Row{
+				Name:    proto.String(row.Name),
+				Tags:    row.Tags,
+				Columns: row.Columns,
+				Values:  pValues,
+			}
+		}
+
+		protoMessages := make([]*internal.InfoMessage, len(r.Messages))
+
+		for j, msg := range r.Messages {
+			protoMessages[j] = &internal.InfoMessage{
+				Level: proto.String(msg.Level),
+				Text:  proto.String(msg.Text),
+			}
+		}
+		err = r.Err
+		errStr := ""
+		if err != nil {
+			errStr = err.Error()
+		}
+
+		res[i] = &internal.InfluxResponse{
+			Statementid: proto.Int32(id),
+			Series:      protoRows,
+			Message:     protoMessages,
+			Partial:     proto.Bool(r.Partial),
+			Err:         proto.String(errStr),
+		}
+	}
+	iResponses := internal.Results{
+		Result: res,
+	}
+
+	b, err = proto.Marshal(&iResponses)
+	if err != nil {
+		n, err = io.WriteString(w, err.Error())
+	} else {
+		n, err = w.Write(b)
+	}
+	n++
+
 	return n, err
 }
 
@@ -117,12 +222,12 @@ func (w *csvFormatter) WriteResponse(resp Response) (n int, err error) {
 				if err := csv.Error(); err != nil {
 					return n, err
 				}
-
-				if out, err := io.WriteString(w, "\n"); err != nil {
+				out, err := io.WriteString(w, "\n")
+				if err != nil {
 					return n, err
-				} else {
-					n += out
-				}
+				} //else {
+				n += out
+				//}
 			}
 			w.statementID = result.StatementID
 

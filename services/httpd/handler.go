@@ -36,6 +36,8 @@ const (
 	//
 	// This has no relation to the number of bytes that are returned.
 	DefaultChunkSize = 10000
+
+	truStr = "true"
 )
 
 // AuthenticationMethod defines the type of authentication used.
@@ -89,7 +91,10 @@ type Handler struct {
 	}
 
 	PointsWriter interface {
-		WritePoints(database, retentionPolicy string, consistencyLevel models.ConsistencyLevel, points []models.Point) error
+		WritePoints(database, retentionPolicy string,
+			consistencyLevel models.ConsistencyLevel,
+			points []models.Point,
+		) error
 	}
 
 	Config    *Config
@@ -369,7 +374,7 @@ func (h *Handler) serveQuery(w http.ResponseWriter, r *http.Request, user *meta.
 	}
 
 	// Parse chunk size. Use default if not provided or unparsable.
-	chunked := r.FormValue("chunked") == "true"
+	chunked := r.FormValue("chunked") == truStr
 	chunkSize := DefaultChunkSize
 	if chunked {
 		if n, err := strconv.ParseInt(r.FormValue("chunk_size"), 10, 64); err == nil && int(n) > 0 {
@@ -378,7 +383,7 @@ func (h *Handler) serveQuery(w http.ResponseWriter, r *http.Request, user *meta.
 	}
 
 	// Parse whether this is an async command.
-	async := r.FormValue("async") == "true"
+	async := r.FormValue("async") == truStr
 
 	opts := influxql.ExecutionOptions{
 		Database:  db,
@@ -618,7 +623,6 @@ func (h *Handler) serveWrite(w http.ResponseWriter, r *http.Request, user *meta.
 		}
 	}
 	buf := bytes.NewBuffer(bs)
-
 	_, err := buf.ReadFrom(body)
 	if err != nil {
 		if h.Config.WriteTracing {
@@ -947,7 +951,7 @@ func authenticate(inner func(http.ResponseWriter, *http.Request, *meta.UserInfo)
 				}
 
 				// Make sure an expiration was set on the token.
-				if exp, ok := claims["exp"].(float64); !ok || exp <= 0.0 {
+				if exp, _ := claims["exp"].(float64); !ok || exp <= 0.0 {
 					h.httpError(w, "token expiration required", http.StatusUnauthorized)
 					return
 				}

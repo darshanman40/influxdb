@@ -1025,13 +1025,14 @@ func snapshot(path string, data *Data) error {
 	defer f.Close()
 
 	var d []byte
-	if b, err := data.MarshalBinary(); err != nil {
+	b, err := data.MarshalBinary()
+	if err != nil {
 		return err
-	} else {
-		d = b
 	}
+	d = b
 
-	if _, err := f.Write(d); err != nil {
+	_, err = f.Write(d)
+	if err != nil {
 		return err
 	}
 

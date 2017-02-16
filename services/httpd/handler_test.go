@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"log"
 	"mime/multipart"
 	"net/http"
@@ -16,9 +17,11 @@ import (
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
+	"github.com/gogo/protobuf/proto"
 	"github.com/influxdb/influxql"
 	"github.com/influxdb/models"
 	"github.com/influxdb/services/httpd"
+	"github.com/influxdb/services/httpd/internal"
 	"github.com/influxdb/services/meta"
 )
 
@@ -42,6 +45,80 @@ func TestHandler_Query(t *testing.T) {
 		t.Fatalf("unexpected status: %d", w.Code)
 	} else if body := strings.TrimSpace(w.Body.String()); body != `{"results":[{"statement_id":1,"series":[{"name":"series0"}]},{"statement_id":2,"series":[{"name":"series1"}]}]}` {
 		t.Fatalf("unexpected body: %s", body)
+	}
+}
+
+func BenchmarkHi(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		h := NewHandler(false)
+		h.StatementExecutor.ExecuteStatementFn = func(stmt influxql.Statement, ctx influxql.ExecutionContext) error {
+			if stmt.String() != `SELECT * FROM bar` {
+				b.Fatalf("unexpected query: %s", stmt.String())
+			} else if ctx.Database != `foo` {
+				b.Fatalf("unexpected db: %s", ctx.Database)
+			}
+			ctx.Results <- &influxql.Result{StatementID: 1, Series: models.Rows([]*models.Row{{Name: "series0"}})}
+			ctx.Results <- &influxql.Result{StatementID: 2, Series: models.Rows([]*models.Row{{Name: "series1"}})}
+			return nil
+		}
+
+		w := httptest.NewRecorder()
+		h.ServeHTTP(w, MustNewProtoRequest("GET", "/query?db=foo&q=SELECT+*+FROM+bar", nil))
+
+		var bodyResults internal.Results
+		buf, _ := ioutil.ReadAll(w.Body)
+		_ = proto.Unmarshal(buf, &bodyResults)
+	}
+}
+
+// Ensure the handler returns results from a query in protobuf format(including nil results).
+func TestHandler_Query_Protobuf(t *testing.T) {
+	h := NewHandler(false)
+	h.StatementExecutor.ExecuteStatementFn = func(stmt influxql.Statement, ctx influxql.ExecutionContext) error {
+		if stmt.String() != `SELECT * FROM bar` {
+			t.Fatalf("unexpected query: %s", stmt.String())
+		} else if ctx.Database != `foo` {
+			t.Fatalf("unexpected db: %s", ctx.Database)
+		}
+		ctx.Results <- &influxql.Result{StatementID: 1, Series: models.Rows([]*models.Row{{Name: "series0"}})}
+		ctx.Results <- &influxql.Result{StatementID: 2, Series: models.Rows([]*models.Row{{Name: "series1"}})}
+		return nil
+	}
+
+	w := httptest.NewRecorder()
+	h.ServeHTTP(w, MustNewProtoRequest("GET", "/query?db=foo&q=SELECT+*+FROM+bar", nil))
+	result := internal.Results{
+		Result: []*internal.InfluxResponse{
+			&internal.InfluxResponse{
+				Statementid: proto.Int32(1),
+				Series: []*internal.Row{
+					&internal.Row{
+						Name: proto.String("series0"),
+					},
+				},
+				Partial: proto.Bool(false),
+				Err:     proto.String(""),
+			},
+			&internal.InfluxResponse{
+				Statementid: proto.Int32(2),
+				Series: []*internal.Row{
+					&internal.Row{
+						Name: proto.String("series1"),
+					},
+				},
+				Partial: proto.Bool(false),
+				Err:     proto.String(""),
+			},
+		},
+	}
+	var bodyResults internal.Results
+	buf, _ := ioutil.ReadAll(w.Body)
+	_ = proto.Unmarshal(buf, &bodyResults)
+
+	if w.Code != http.StatusOK {
+		t.Fatalf("unexpected status: %d", w.Code)
+	} else if r := bodyResults.GetResult(); r == nil {
+		t.Fatalf("unexpected body: %s", result)
 	}
 }
 
@@ -704,6 +781,13 @@ func MustNewRequest(method, urlStr string, body io.Reader) *http.Request {
 func MustNewJSONRequest(method, urlStr string, body io.Reader) *http.Request {
 	r := MustNewRequest(method, urlStr, body)
 	r.Header.Set("Accept", "application/json")
+	return r
+}
+
+// MustNewRequest returns a new HTTP request with the content type set. Panic on error.
+func MustNewProtoRequest(method, urlStr string, body io.Reader) *http.Request {
+	r := MustNewRequest(method, urlStr, body)
+	r.Header.Set("Accept", "application/x-protobuf")
 	return r
 }
 

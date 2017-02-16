@@ -204,6 +204,13 @@ type point struct {
 	it fieldIterator
 }
 
+type fieldIterator struct {
+	start, end  int
+	key, keybuf []byte
+	valueBuf    []byte
+	fieldType   FieldType
+}
+
 const (
 	// the number of characters for the largest possible int64 (9223372036854775807)
 	maxInt64Digits = 19
@@ -1842,13 +1849,6 @@ func parseNumber(val []byte) (interface{}, error) {
 func (p *point) FieldIterator() FieldIterator {
 	p.Reset()
 	return p
-}
-
-type fieldIterator struct {
-	start, end  int
-	key, keybuf []byte
-	valueBuf    []byte
-	fieldType   FieldType
 }
 
 // Next indicates whether there any fields remaining.
