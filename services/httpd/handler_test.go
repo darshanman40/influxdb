@@ -2,6 +2,7 @@ package httpd_test
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -48,7 +49,7 @@ func TestHandler_Query(t *testing.T) {
 	}
 }
 
-func BenchmarkHi(b *testing.B) {
+func BenchmarkProtoFormatter(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		h := NewHandler(false)
 		h.StatementExecutor.ExecuteStatementFn = func(stmt influxql.Statement, ctx influxql.ExecutionContext) error {
@@ -66,8 +67,44 @@ func BenchmarkHi(b *testing.B) {
 		h.ServeHTTP(w, MustNewProtoRequest("GET", "/query?db=foo&q=SELECT+*+FROM+bar", nil))
 
 		var bodyResults internal.Results
-		buf, _ := ioutil.ReadAll(w.Body)
-		_ = proto.Unmarshal(buf, &bodyResults)
+		buf, err := ioutil.ReadAll(w.Body)
+		if err != nil {
+			b.Fatal("body read fail: ", err)
+		}
+		err = proto.Unmarshal(buf, &bodyResults)
+		if err != nil {
+			b.Fatal("proto unmarshal fail: ", err)
+		}
+	}
+}
+
+func BenchmarkJSONFormatter(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		h := NewHandler(false)
+		h.StatementExecutor.ExecuteStatementFn = func(stmt influxql.Statement, ctx influxql.ExecutionContext) error {
+			if stmt.String() != `SELECT * FROM bar` {
+				b.Fatalf("unexpected query: %s", stmt.String())
+			} else if ctx.Database != `foo` {
+				b.Fatalf("unexpected db: %s", ctx.Database)
+			}
+			ctx.Results <- &influxql.Result{StatementID: 1, Series: models.Rows([]*models.Row{{Name: "series0"}})}
+			ctx.Results <- &influxql.Result{StatementID: 2, Series: models.Rows([]*models.Row{{Name: "series1"}})}
+			return nil
+		}
+
+		w := httptest.NewRecorder()
+		h.ServeHTTP(w, MustNewJSONRequest("GET", "/query?db=foo&q=SELECT+*+FROM+bar", nil))
+
+		//var bodyResults internal.Results
+		var bodyResults map[string]interface{}
+		buf := w.Body.Bytes()
+		// if err != nil {
+		// 	b.Fatal("body reading fail: ", err)
+		// }
+		err := json.Unmarshal(buf, &bodyResults)
+		if err != nil {
+			b.Fatal("json unmarshal fail: ", err)
+		}
 	}
 }
 
