@@ -121,6 +121,7 @@ func (w *protoFormatter) WriteResponse(resp Response) (n int, err error) {
 			for k, rowValues := range row.Values {
 				protoValue := make([]*internal.Value, len(rowValues))
 
+				// For list of generic type since protobuf doesn't support genrics
 				for l, rowValue := range rowValues {
 					switch v := rowValue.(type) {
 					case string:

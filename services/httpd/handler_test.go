@@ -49,6 +49,7 @@ func TestHandler_Query(t *testing.T) {
 	}
 }
 
+//BenchmarkProtoFormatter benchmar proto responseWritter
 func BenchmarkProtoFormatter(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		h := NewHandler(false)
@@ -78,6 +79,7 @@ func BenchmarkProtoFormatter(b *testing.B) {
 	}
 }
 
+//BenchmarkJSONFormatter benchmar JSON responseWritter
 func BenchmarkJSONFormatter(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		h := NewHandler(false)
@@ -95,12 +97,8 @@ func BenchmarkJSONFormatter(b *testing.B) {
 		w := httptest.NewRecorder()
 		h.ServeHTTP(w, MustNewJSONRequest("GET", "/query?db=foo&q=SELECT+*+FROM+bar", nil))
 
-		//var bodyResults internal.Results
 		var bodyResults map[string]interface{}
 		buf := w.Body.Bytes()
-		// if err != nil {
-		// 	b.Fatal("body reading fail: ", err)
-		// }
 		err := json.Unmarshal(buf, &bodyResults)
 		if err != nil {
 			b.Fatal("json unmarshal fail: ", err)

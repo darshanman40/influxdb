@@ -70,7 +70,7 @@ Remaining values I'm trying to figure out  to which data type to assign.
 
 ## How to use?
 
-Endpoint is same as what we use for JSON. That's http(s)//:<url>:<port>/?query
+Endpoint is same as what we use for JSON. That's http(s)://<url>:<port>/query?
 
 Request will be same as you do for JSON. Only one thing you need to make sure you add `application/x-protobuf` in request header with `Accept` as header key (case-sensitive).
 
