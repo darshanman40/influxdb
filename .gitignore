@@ -77,3 +77,6 @@ man/*.1.gz
 
 # compile file
 recompile.sh
+
+#profiling files
+/services/httpd/prof*

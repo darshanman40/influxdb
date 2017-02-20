@@ -1,12 +1,6 @@
 syntax = "proto2";
 package internal;
 
-message UserMsg {
-    required string Sender = 2;
-    optional string UserMessage = 3;
-    optional string Receiver = 4;
-}
-
 message Results {
   repeated InfluxResponse Result = 1;
 }
