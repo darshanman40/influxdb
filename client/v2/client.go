@@ -12,8 +12,11 @@ import (
 	"net/url"
 	"time"
 
+	"github.com/influxdb/client/v2/internal"
 	"github.com/influxdb/models"
 )
+
+var protoData internal.Results
 
 // HTTPConfig is the config data needed to create an HTTP Client.
 type HTTPConfig struct {
@@ -69,6 +72,10 @@ type Client interface {
 	// Query makes an InfluxDB Query on the database. This will fail if using
 	// the UDP client.
 	Query(q Query) (*Response, error)
+
+	// Query makes an InfluxDB Query on the database. This will fail if using
+	// the UDP client.
+	QueryString(dbname, query, contentType string) (*internal.Results, error)
 
 	// Close releases any resources a Client may be using.
 	Close() error
@@ -523,4 +530,43 @@ func (c *client) Query(q Query) (*Response, error) {
 			resp.StatusCode)
 	}
 	return &response, nil
+}
+
+// QueryString sends a command to the server and returns the Response.
+func (c *client) QueryString(dbname, query, contentType string) (*internal.Results, error) {
+	u := c.url
+	u.Path = "query"
+	req, err := http.NewRequest("GET", u.String(), nil)
+	queryURL := req.URL.Query()
+
+	queryURL.Set("db", dbname)
+	queryURL.Set("q", query)
+	req.URL.RawQuery = queryURL.Encode()
+
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Set("Content-Type", contentType)
+	req.Header.Set("User-Agent", c.useragent)
+
+	if c.username != "" {
+		req.SetBasicAuth(c.username, c.password)
+	}
+
+	resp, err := c.httpClient.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	responseParser := NewResponseParser(resp)
+	obj, err := responseParser.ParseResponse(resp)
+
+	if err != nil {
+		return nil, err
+	}
+	protoData = obj.(internal.Results)
+
+	return &protoData, nil
 }

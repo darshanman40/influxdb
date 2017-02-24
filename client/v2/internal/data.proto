@@ -1,0 +1,44 @@
+syntax = "proto2";
+package internal;
+
+message Response{
+  optional Results Results = 1;
+  optional string error = 2;
+}
+
+message Results {
+  repeated InfluxResponse Result = 1;
+}
+
+message InfluxResponse {
+  optional int32 statementid = 5;
+  repeated Row series = 1;
+  repeated InfoMessage Message = 2;
+	optional bool Partial = 3;
+	optional string	Err = 4;
+}
+
+message InfoMessage {
+  optional string Level = 1;
+  optional string Text = 2;
+}
+
+message Row {
+  required string Name = 1;
+  map<string, string> Tags = 2;
+  repeated string Columns = 3;
+  repeated Values Values =4;
+  optional bool Partial=5;
+}
+
+message Values {
+  repeated Value Value = 1;
+}
+
+message Value {
+  required int32  DataType     = 1;
+  optional double FloatValue   = 2;
+  optional int64  IntegerValue = 3;
+  optional string StringValue  = 4;
+  optional bool BoolValue      = 5;
+}

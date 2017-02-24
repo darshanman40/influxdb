@@ -5,6 +5,8 @@ import (
 	"io"
 	"net"
 	"time"
+
+	"github.com/influxdb/client/v2/internal"
 )
 
 const (
@@ -104,6 +106,10 @@ func (uc *udpclient) Write(bp BatchPoints) error {
 }
 
 func (uc *udpclient) Query(q Query) (*Response, error) {
+	return nil, fmt.Errorf("Querying via UDP is not supported")
+}
+
+func (uc *udpclient) QueryString(dbname, query, contentType string) (*internal.Results, error) {
 	return nil, fmt.Errorf("Querying via UDP is not supported")
 }
 
