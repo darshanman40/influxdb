@@ -42,7 +42,7 @@ type TaskManager struct {
 func NewTaskManager() *TaskManager {
 	return &TaskManager{
 		QueryTimeout: DefaultQueryTimeout,
-		Logger:       zap.New(zap.NullEncoder()),
+		Logger:       *zap.NewNop(),
 		queries:      make(map[uint64]*QueryTask),
 		nextID:       1,
 	}

@@ -162,7 +162,7 @@ type QueryExecutor struct {
 func NewQueryExecutor() *QueryExecutor {
 	return &QueryExecutor{
 		TaskManager: NewTaskManager(),
-		Logger:      zap.New(zap.NullEncoder()),
+		Logger:      *zap.NewNop(),
 		stats:       &QueryStatistics{},
 	}
 }
@@ -194,10 +194,10 @@ func (e *QueryExecutor) Close() error {
 	return e.TaskManager.Close()
 }
 
-// SetLogOutput sets the writer to which all logs are written. It must not be
+//WithLogger SetLogOutput sets the writer to which all logs are written. It must not be
 // called after Open is called.
 func (e *QueryExecutor) WithLogger(log zap.Logger) {
-	e.Logger = log.With(zap.String("service", "query"))
+	e.Logger = *log.With(zap.String("service", "query"))
 	e.TaskManager.Logger = e.Logger
 }
 

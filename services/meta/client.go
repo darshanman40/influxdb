@@ -77,7 +77,7 @@ func NewClient(config *Config) *Client {
 		},
 		closing:             make(chan struct{}),
 		changed:             make(chan struct{}),
-		logger:              zap.New(zap.NullEncoder()),
+		logger:              zap.NewNop(),
 		authCache:           make(map[string]authUser, 0),
 		path:                config.Dir,
 		retentionAutoCreate: config.RetentionAutoCreate,

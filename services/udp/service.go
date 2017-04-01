@@ -68,7 +68,7 @@ func NewService(c Config) *Service {
 		config:      d,
 		parserChan:  make(chan []byte, parserChanLen),
 		batcher:     tsdb.NewPointBatcher(d.BatchSize, d.BatchPending, time.Duration(d.BatchTimeout)),
-		Logger:      zap.New(zap.NullEncoder()),
+		Logger:      zap.NewNop(),
 		stats:       &Statistics{},
 		defaultTags: models.StatisticTags{"bind": d.BindAddress},
 	}

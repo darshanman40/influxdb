@@ -33,7 +33,7 @@ func NewService(c Config) *Service {
 		cert:    c.HTTPSCertificate,
 		err:     make(chan error),
 		version: c.Version,
-		logger:  zap.New(zap.NullEncoder()),
+		logger:  zap.NewNop(),
 	}
 }
 

@@ -81,7 +81,7 @@ func NewService(c Config) *Service {
 		// Use defaults where necessary.
 		Config: c.WithDefaults(),
 
-		Logger:      zap.New(zap.NullEncoder()),
+		Logger:      zap.NewNop(),
 		stats:       &Statistics{},
 		defaultTags: models.StatisticTags{"bind": c.BindAddress},
 	}

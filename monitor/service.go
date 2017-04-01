@@ -82,7 +82,7 @@ func New(r Reporter, c Config) *Monitor {
 		storeDatabase:        c.StoreDatabase,
 		storeInterval:        time.Duration(c.StoreInterval),
 		storeRetentionPolicy: MonitorRetentionPolicy,
-		Logger:               zap.New(zap.NullEncoder()),
+		Logger:               zap.NewNop(),
 	}
 }
 

@@ -92,7 +92,7 @@ func NewService(c Config) *Service {
 		RunInterval:    time.Duration(c.RunInterval),
 		RunCh:          make(chan *RunRequest),
 		loggingEnabled: c.LogEnabled,
-		Logger:         zap.New(zap.NullEncoder()),
+		Logger:         zap.NewNop(),
 		stats:          &Statistics{},
 		lastRuns:       map[string]time.Time{},
 	}

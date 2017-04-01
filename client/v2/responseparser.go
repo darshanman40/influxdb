@@ -7,7 +7,7 @@ import (
 	"net/http"
 
 	"github.com/gogo/protobuf/proto"
-	"github.com/loadgen/data"
+	data "github.com/influxdb/client/v2/internal"
 )
 
 //ResponseParser ...

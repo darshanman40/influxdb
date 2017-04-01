@@ -93,7 +93,7 @@ func NewService(c Config) (*Service, error) {
 		batchSize:       d.BatchSize,
 		batchPending:    d.BatchPending,
 		batchTimeout:    time.Duration(d.BatchTimeout),
-		Logger:          zap.New(zap.NullEncoder()),
+		Logger:          zap.NewNop(),
 		LogPointErrors:  d.LogPointErrors,
 		stats:           &Statistics{},
 		defaultTags:     models.StatisticTags{"bind": d.BindAddress},

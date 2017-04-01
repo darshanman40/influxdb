@@ -64,7 +64,7 @@ type Service struct {
 // NewService returns a subscriber service with given settings
 func NewService(c Config) *Service {
 	s := &Service{
-		Logger: zap.New(zap.NullEncoder()),
+		Logger: zap.NewNop(),
 		closed: true,
 		stats:  &Statistics{},
 		conf:   c,

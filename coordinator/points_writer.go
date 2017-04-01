@@ -96,8 +96,9 @@ func NewPointsWriter() *PointsWriter {
 	return &PointsWriter{
 		closing:      make(chan struct{}),
 		WriteTimeout: DefaultWriteTimeout,
-		Logger:       zap.New(zap.NullEncoder()),
-		stats:        &WriteStatistics{},
+		// Logger:       zap.NewNop(),
+		Logger: zap.NewNop(),
+		stats:  &WriteStatistics{},
 	}
 }
 

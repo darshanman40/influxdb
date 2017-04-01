@@ -592,7 +592,7 @@ type CacheLoader struct {
 func NewCacheLoader(files []string) *CacheLoader {
 	return &CacheLoader{
 		files:  files,
-		Logger: zap.New(zap.NullEncoder()),
+		Logger: zap.NewNop(),
 	}
 }
 

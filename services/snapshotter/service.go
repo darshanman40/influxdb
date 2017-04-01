@@ -49,7 +49,7 @@ type Service struct {
 func NewService() *Service {
 	return &Service{
 		err:    make(chan error),
-		Logger: zap.New(zap.NullEncoder()),
+		Logger: zap.NewNop(),
 	}
 }
 

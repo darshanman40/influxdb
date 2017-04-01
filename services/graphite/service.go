@@ -104,7 +104,7 @@ func NewService(c Config) (*Service, error) {
 		batchPending:    d.BatchPending,
 		udpReadBuffer:   d.UDPReadBuffer,
 		batchTimeout:    time.Duration(d.BatchTimeout),
-		logger:          zap.New(zap.NullEncoder()),
+		logger:          zap.NewNop(),
 		stats:           &Statistics{},
 		defaultTags:     models.StatisticTags{"proto": d.Protocol, "bind": d.BindAddress},
 		tcpConnections:  make(map[string]*tcpConnection),

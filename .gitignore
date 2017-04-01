@@ -80,3 +80,5 @@ recompile.sh
 
 #profiling files
 /services/httpd/prof*
+
+/vendor

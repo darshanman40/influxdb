@@ -29,15 +29,14 @@ func NewService(c Config) (*Service, error) {
 	s := Service{
 		checkInterval: time.Duration(c.CheckInterval),
 		advancePeriod: time.Duration(c.AdvancePeriod),
-		Logger:        zap.New(zap.NullEncoder()),
+		Logger:        *zap.NewNop(), //zap.NewNop(),
 	}
-
 	return &s, nil
 }
 
 // WithLogger sets the logger for the service.
 func (s *Service) WithLogger(log zap.Logger) {
-	s.Logger = log.With(zap.String("service", "shard-precreation"))
+	s.Logger = *log.With(zap.String("service", "shard-precreation"))
 }
 
 // Open starts the precreation service.

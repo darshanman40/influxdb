@@ -70,7 +70,7 @@ func NewService(c Config) *Service {
 		unixSocket: c.UnixSocketEnabled,
 		bindSocket: c.BindSocket,
 		Handler:    NewHandler(c),
-		Logger:     zap.New(zap.NullEncoder()),
+		Logger:     zap.NewNop(),
 	}
 	if s.key == "" {
 		s.key = s.cert

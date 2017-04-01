@@ -35,7 +35,7 @@ func NewService(c Config) *Service {
 	return &Service{
 		checkInterval: time.Duration(c.CheckInterval),
 		done:          make(chan struct{}),
-		logger:        zap.New(zap.NullEncoder()),
+		logger:        zap.NewNop(),
 	}
 }
 

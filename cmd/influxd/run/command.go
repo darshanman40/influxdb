@@ -54,7 +54,8 @@ func NewCommand() *Command {
 		Stdin:   os.Stdin,
 		Stdout:  os.Stdout,
 		Stderr:  os.Stderr,
-		Logger:  zap.New(zap.NullEncoder()),
+		//Logger:  zap.NewNop(),
+		Logger: zap.NewNop(),
 	}
 }
 
