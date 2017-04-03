@@ -108,7 +108,7 @@ func NewHandler(c Config) *Handler {
 	h := &Handler{
 		mux:       pat.New(),
 		Config:    &c,
-		Logger:    zap.NewNop(),
+		Logger:    *zap.NewNop(),
 		CLFLogger: log.New(os.Stderr, "[httpd] ", 0),
 		stats:     &Statistics{},
 	}

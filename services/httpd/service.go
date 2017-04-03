@@ -70,7 +70,7 @@ func NewService(c Config) *Service {
 		unixSocket: c.UnixSocketEnabled,
 		bindSocket: c.BindSocket,
 		Handler:    NewHandler(c),
-		Logger:     zap.NewNop(),
+		Logger:     *zap.NewNop(),
 	}
 	if s.key == "" {
 		s.key = s.cert
@@ -173,7 +173,7 @@ func (s *Service) Close() error {
 
 // WithLogger sets the logger for the service.
 func (s *Service) WithLogger(log zap.Logger) {
-	s.Logger = log.With(zap.String("service", "httpd"))
+	s.Logger = *log.With(zap.String("service", "httpd"))
 	s.Handler.Logger = s.Logger
 }
 

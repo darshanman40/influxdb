@@ -81,7 +81,7 @@ func NewService(c Config) *Service {
 		// Use defaults where necessary.
 		Config: c.WithDefaults(),
 
-		Logger:      zap.NewNop(),
+		Logger:      *zap.NewNop(),
 		stats:       &Statistics{},
 		defaultTags: models.StatisticTags{"bind": c.BindAddress},
 	}
@@ -264,7 +264,7 @@ func (s *Service) createInternalStorage() error {
 
 // WithLogger sets the service's logger.
 func (s *Service) WithLogger(log zap.Logger) {
-	s.Logger = log.With(zap.String("service", "collectd"))
+	s.Logger = *log.With(zap.String("service", "collectd"))
 }
 
 // Statistics maintains statistics for the collectd service.

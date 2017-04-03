@@ -592,7 +592,7 @@ type CacheLoader struct {
 func NewCacheLoader(files []string) *CacheLoader {
 	return &CacheLoader{
 		files:  files,
-		Logger: zap.NewNop(),
+		Logger: *zap.NewNop(),
 	}
 }
 
@@ -651,7 +651,7 @@ func (cl *CacheLoader) Load(cache *Cache) error {
 
 // WithLogger sets the logger on the CacheLoader.
 func (cl *CacheLoader) WithLogger(log zap.Logger) {
-	cl.Logger = log.With(zap.String("service", "cacheloader"))
+	cl.Logger = *log.With(zap.String("service", "cacheloader"))
 }
 
 // UpdateAge updates the age statistic based on the current time.

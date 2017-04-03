@@ -49,7 +49,7 @@ type Service struct {
 func NewService() *Service {
 	return &Service{
 		err:    make(chan error),
-		Logger: zap.NewNop(),
+		Logger: *zap.NewNop(),
 	}
 }
 
@@ -73,7 +73,7 @@ func (s *Service) Close() error {
 
 // WithLogger sets the logger on the service.
 func (s *Service) WithLogger(log zap.Logger) {
-	s.Logger = log.With(zap.String("service", "snapshot"))
+	s.Logger = *log.With(zap.String("service", "snapshot"))
 }
 
 // Err returns a channel for fatal out-of-band errors.

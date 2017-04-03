@@ -3,7 +3,6 @@ package continuous_querier
 import (
 	"errors"
 	"fmt"
-	"os"
 	"sync"
 	"testing"
 	"time"
@@ -391,13 +390,13 @@ func NewTestService(t *testing.T) *Service {
 	s.RunInterval = time.Millisecond
 
 	// Set Logger to write to dev/null so stdout isn't polluted.
-	if testing.Verbose() {
-		s.WithLogger(zap.New(
-			zap.NewTextEncoder(),
-			zap.Output(os.Stderr),
-		))
-	}
-
+	// if testing.Verbose() {
+	// 	s.WithLogger(zap.New(
+	// 		zap.NewTextEncoder(),
+	// 		zap.Output(os.Stderr),
+	// 	))
+	// }
+	s.WithLogger(*getLogger(testing.Verbose()))
 	// Add a couple test databases and CQs.
 	ms.CreateDatabase("db", "rp")
 	ms.CreateContinuousQuery("db", "cq", `CREATE CONTINUOUS QUERY cq ON db BEGIN SELECT count(cpu) INTO cpu_count FROM cpu WHERE time > now() - 1h GROUP BY time(1s) END`)
@@ -630,4 +629,19 @@ func check(err error) {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func getLogger(verbose bool) *zap.Logger {
+	var z *zap.Logger
+	var err error
+	if verbose {
+		z, err = zap.NewDevelopment()
+	} else {
+		z, err = zap.NewProduction()
+	}
+
+	if err != nil {
+		panic(err)
+	}
+	return z
 }

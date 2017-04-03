@@ -104,7 +104,7 @@ func NewService(c Config) (*Service, error) {
 		batchPending:    d.BatchPending,
 		udpReadBuffer:   d.UDPReadBuffer,
 		batchTimeout:    time.Duration(d.BatchTimeout),
-		logger:          zap.NewNop(),
+		logger:          *zap.NewNop(),
 		stats:           &Statistics{},
 		defaultTags:     models.StatisticTags{"proto": d.Protocol, "bind": d.BindAddress},
 		tcpConnections:  make(map[string]*tcpConnection),
@@ -253,7 +253,7 @@ func (s *Service) createInternalStorage() error {
 
 // WithLogger sets the logger on the service.
 func (s *Service) WithLogger(log zap.Logger) {
-	s.logger = log.With(
+	s.logger = *log.With(
 		zap.String("service", "graphite"),
 		zap.String("addr", s.bindAddress),
 	)

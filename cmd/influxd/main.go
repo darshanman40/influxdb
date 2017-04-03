@@ -26,16 +26,20 @@ var (
 	branch  string
 )
 
+const (
+	unknown = "unknown"
+)
+
 func init() {
 	// If commit, branch, or build time are not set, make that clear.
 	if version == "" {
-		version = "unknown"
+		version = unknown
 	}
 	if commit == "" {
-		commit = "unknown"
+		commit = unknown
 	}
 	if branch == "" {
-		branch = "unknown"
+		branch = unknown
 	}
 }
 
@@ -60,11 +64,13 @@ type Main struct {
 
 // NewMain return a new instance of Main.
 func NewMain() *Main {
+	// z, err := zap.NewProduction()
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	z := zap.NewNop()
 	return &Main{
-		Logger: zap.New(
-			zap.NewTextEncoder(),
-			zap.Output(os.Stderr),
-		),
+		Logger: *z,
 		Stdin:  os.Stdin,
 		Stdout: os.Stdout,
 		Stderr: os.Stderr,

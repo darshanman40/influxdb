@@ -29,7 +29,7 @@ func NewService(c Config) (*Service, error) {
 	s := Service{
 		checkInterval: time.Duration(c.CheckInterval),
 		advancePeriod: time.Duration(c.AdvancePeriod),
-		Logger:        *zap.NewNop(), //zap.NewNop(),
+		Logger:        *zap.NewNop(), //*zap.NewNop(),
 	}
 	return &s, nil
 }

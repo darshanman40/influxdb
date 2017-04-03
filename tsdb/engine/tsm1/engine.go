@@ -138,7 +138,7 @@ func NewEngine(id uint64, path string, walPath string, opt tsdb.EngineOptions) t
 		FileStore: fs,
 	}
 
-	logger := zap.New(zap.NullEncoder())
+	logger := *zap.NewNop()
 	e := &Engine{
 		id:           id,
 		path:         path,
@@ -428,7 +428,7 @@ func (e *Engine) Close() error {
 
 // WithLogger sets the logger for the engine.
 func (e *Engine) WithLogger(log zap.Logger) {
-	e.logger = log.With(zap.String("engine", "tsm1"))
+	e.logger = *log.With(zap.String("engine", "tsm1"))
 
 	if e.traceLogging {
 		e.traceLogger = e.logger

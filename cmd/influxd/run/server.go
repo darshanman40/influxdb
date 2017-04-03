@@ -2,7 +2,6 @@ package run
 
 import (
 	"fmt"
-	"io"
 	"log"
 	"net"
 	"os"
@@ -132,6 +131,10 @@ func NewServer(c *Config, buildInfo *BuildInfo) (*Server, error) {
 	// In 0.10.0 bind-address got moved to the top level. Check
 	// The old location to keep things backwards compatible
 	bind := c.BindAddress
+	z, err := zap.NewProduction()
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	s := &Server{
 		buildInfo: *buildInfo,
@@ -140,11 +143,7 @@ func NewServer(c *Config, buildInfo *BuildInfo) (*Server, error) {
 
 		BindAddress: bind,
 
-		Logger: zap.New(
-			zap.NewTextEncoder(),
-			zap.Output(os.Stderr),
-		),
-
+		Logger:     *z,
 		MetaClient: meta.NewClient(c.Meta),
 
 		reportingDisabled: c.ReportingDisabled,
@@ -230,8 +229,20 @@ func (s *Server) appendSnapshotterService() {
 
 // SetLogOutput sets the logger used for all messages. It must not be called
 // after the Open method has been called.
-func (s *Server) SetLogOutput(w io.Writer) {
-	s.Logger = zap.New(zap.NewTextEncoder(), zap.Output(zap.AddSync(w)))
+func (s *Server) SetLogOutput(paths ...string) {
+	if paths == nil || len(paths) < 1 {
+		return
+	}
+	w, _, err := zap.Open(paths...)
+	if err != nil {
+		log.Fatal(err)
+	}
+	z, err := zap.NewProduction(zap.ErrorOutput(w))
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	s.Logger = *z
 }
 
 func (s *Server) appendMonitorService() {

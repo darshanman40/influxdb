@@ -92,7 +92,7 @@ func NewService(c Config) *Service {
 		RunInterval:    time.Duration(c.RunInterval),
 		RunCh:          make(chan *RunRequest),
 		loggingEnabled: c.LogEnabled,
-		Logger:         zap.NewNop(),
+		Logger:         *zap.NewNop(),
 		stats:          &Statistics{},
 		lastRuns:       map[string]time.Time{},
 	}
@@ -132,7 +132,7 @@ func (s *Service) Close() error {
 
 // WithLogger sets the logger on the service.
 func (s *Service) WithLogger(log zap.Logger) {
-	s.Logger = log.With(zap.String("service", "continuous_querier"))
+	s.Logger = *log.With(zap.String("service", "continuous_querier"))
 }
 
 // Statistics maintains the statistics for the continuous query service.

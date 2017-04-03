@@ -130,7 +130,7 @@ type Shard struct {
 // NewShard returns a new initialized Shard.
 func NewShard(id uint64, index *DatabaseIndex, path string, walPath string, options EngineOptions) *Shard {
 	db, rp := DecodeStorePath(path)
-	logger := zap.New(zap.NullEncoder())
+	logger := *zap.NewNop()
 	s := &Shard{
 		index:   index,
 		id:      id,
@@ -165,7 +165,7 @@ func (s *Shard) WithLogger(log zap.Logger) {
 	if err := s.ready(); err == nil {
 		s.engine.WithLogger(s.baseLogger)
 	}
-	s.logger = s.baseLogger.With(zap.String("service", "shard"))
+	s.logger = *s.baseLogger.With(zap.String("service", "shard"))
 }
 
 // SetEnabled enables the shard for queries and write.  When disabled, all

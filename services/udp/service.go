@@ -68,7 +68,7 @@ func NewService(c Config) *Service {
 		config:      d,
 		parserChan:  make(chan []byte, parserChanLen),
 		batcher:     tsdb.NewPointBatcher(d.BatchSize, d.BatchPending, time.Duration(d.BatchTimeout)),
-		Logger:      zap.NewNop(),
+		Logger:      *zap.NewNop(),
 		stats:       &Statistics{},
 		defaultTags: models.StatisticTags{"bind": d.BindAddress},
 	}
@@ -291,7 +291,7 @@ func (s *Service) createInternalStorage() error {
 
 // WithLogger sets the logger on the service.
 func (s *Service) WithLogger(log zap.Logger) {
-	s.Logger = log.With(zap.String("service", "udp"))
+	s.Logger = *log.With(zap.String("service", "udp"))
 }
 
 // Addr returns the listener's address.

@@ -72,8 +72,6 @@ man/*.xml
 man/*.1
 man/*.1.gz
 
-# build files
-/usage-client/*
 
 # compile file
 recompile.sh

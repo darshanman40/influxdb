@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 )
 
 const logo = `
@@ -34,9 +35,8 @@ type Command struct {
 	Branch    string
 	Commit    string
 	BuildTime string
-
-	closing chan struct{}
-	Closed  chan struct{}
+	closing   chan struct{}
+	Closed    chan struct{}
 
 	Stdin  io.Reader
 	Stdout io.Writer
@@ -54,8 +54,7 @@ func NewCommand() *Command {
 		Stdin:   os.Stdin,
 		Stdout:  os.Stdout,
 		Stderr:  os.Stderr,
-		//Logger:  zap.NewNop(),
-		Logger: zap.NewNop(),
+		Logger:  *zap.NewNop(),
 	}
 }
 
@@ -65,6 +64,17 @@ func (cmd *Command) Run(args ...string) error {
 	options, err := cmd.ParseFlags(args...)
 	if err != nil {
 		return err
+	}
+
+	if options.LoggerProfile == "dev" {
+		z, err := zap.NewDevelopment(zap.AddCaller())
+		if err != nil {
+			log.Fatal(err)
+		}
+		cmd.Logger = *z
+	} else if options.LoggerProfile == "prod" {
+		cmd.Logger = *getProductionLogger()
+
 	}
 
 	// Print sweet InfluxDB logo.
@@ -158,6 +168,7 @@ func (cmd *Command) ParseFlags(args ...string) (Options, error) {
 	_ = fs.String("hostname", "", "")
 	fs.StringVar(&options.CPUProfile, "cpuprofile", "", "")
 	fs.StringVar(&options.MemProfile, "memprofile", "", "")
+	fs.StringVar(&options.LoggerProfile, "logprofile", "", "")
 	fs.Usage = func() { fmt.Fprintln(cmd.Stderr, usage) }
 	if err := fs.Parse(args); err != nil {
 		return Options{}, err
@@ -223,14 +234,17 @@ Usage: influxd run [flags]
             Write CPU profiling information to a file.
     -memprofile <path>
             Write memory usage information to a file.
+		-logprofile <path>
+						define logger for appropriate level.
 `
 
 // Options represents the command line options that can be parsed.
 type Options struct {
-	ConfigPath string
-	PIDFile    string
-	CPUProfile string
-	MemProfile string
+	ConfigPath    string
+	LoggerProfile string
+	PIDFile       string
+	CPUProfile    string
+	MemProfile    string
 }
 
 // GetConfigPath returns the config path from the options.
@@ -259,4 +273,25 @@ func (opt *Options) GetConfigPath() string {
 		}
 	}
 	return ""
+}
+
+func getProductionLogger() *zap.Logger {
+	ws, _, err := zap.Open("stderr")
+	if err != nil {
+		log.Fatal(err)
+	}
+	enc := zapcore.NewJSONEncoder(zapcore.EncoderConfig{
+		TimeKey:        "ts",
+		LevelKey:       "level",
+		NameKey:        "logger",
+		CallerKey:      "caller",
+		MessageKey:     "msg",
+		StacktraceKey:  "stacktrace",
+		EncodeLevel:    zapcore.LowercaseLevelEncoder,
+		EncodeTime:     zapcore.EpochTimeEncoder,
+		EncodeDuration: zapcore.SecondsDurationEncoder,
+	})
+	zc := zapcore.NewCore(enc, ws, zapcore.InfoLevel)
+	z := zap.New(zc)
+	return z
 }

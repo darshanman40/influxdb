@@ -64,7 +64,7 @@ type Service struct {
 // NewService returns a subscriber service with given settings
 func NewService(c Config) *Service {
 	s := &Service{
-		Logger: zap.NewNop(),
+		Logger: *zap.NewNop(),
 		closed: true,
 		stats:  &Statistics{},
 		conf:   c,
@@ -127,7 +127,7 @@ func (s *Service) Close() error {
 
 // WithLogger sets the logger on the service.
 func (s *Service) WithLogger(log zap.Logger) {
-	s.Logger = log.With(zap.String("service", "subscriber"))
+	s.Logger = *log.With(zap.String("service", "subscriber"))
 }
 
 // Statistics maintains the statistics for the subscriber service.

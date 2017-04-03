@@ -2472,12 +2472,18 @@ func BenchmarkFileStore_Stats(b *testing.B) {
 	}
 
 	fs := tsm1.NewFileStore(dir)
+	var z *zap.Logger
 	if testing.Verbose() {
-		fs.WithLogger(zap.New(
-			zap.NewTextEncoder(),
-			zap.Output(os.Stderr),
-		))
+		z, err = zap.NewDevelopment()
+	} else {
+		z, err = zap.NewProduction()
 	}
+
+	if err != nil {
+		b.Fatalf("initiating logger failed: %v", err)
+	}
+
+	fs.WithLogger(*z)
 
 	if err := fs.Open(); err != nil {
 		b.Fatalf("opening file store %v", err)

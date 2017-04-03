@@ -33,7 +33,7 @@ func NewService(c Config) *Service {
 		cert:    c.HTTPSCertificate,
 		err:     make(chan error),
 		version: c.Version,
-		logger:  zap.NewNop(),
+		logger:  *zap.NewNop(),
 	}
 }
 
@@ -81,8 +81,9 @@ func (s *Service) Close() error {
 	return nil
 }
 
+//WithLogger ...
 func (s *Service) WithLogger(log zap.Logger) {
-	s.logger = log.With(zap.String("service", "admin"))
+	s.logger = *log.With(zap.String("service", "admin"))
 }
 
 // Err returns a channel for fatal errors that occur on the listener.

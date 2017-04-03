@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"errors"
 	"io"
-	"os"
+	"log"
 	"reflect"
 	"regexp"
 	"testing"
@@ -219,14 +219,20 @@ func NewQueryExecutor() *QueryExecutor {
 	}
 	e.QueryExecutor.StatementExecutor = e.StatementExecutor
 
-	var out io.Writer = &e.LogOutput
+	var z *zap.Logger
+	var err error
 	if testing.Verbose() {
-		out = io.MultiWriter(out, os.Stderr)
+		z, err = zap.NewDevelopment()
+	} else {
+		z, err = zap.NewProduction()
 	}
-	e.QueryExecutor.WithLogger(zap.New(
-		zap.NewTextEncoder(),
-		zap.Output(zap.AddSync(out)),
-	))
+
+	if err != nil {
+		log.Panic(err)
+		return nil
+	}
+
+	e.QueryExecutor.WithLogger(*z)
 
 	return e
 }

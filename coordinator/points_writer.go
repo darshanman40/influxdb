@@ -96,8 +96,8 @@ func NewPointsWriter() *PointsWriter {
 	return &PointsWriter{
 		closing:      make(chan struct{}),
 		WriteTimeout: DefaultWriteTimeout,
-		// Logger:       zap.NewNop(),
-		Logger: zap.NewNop(),
+		// Logger:       *zap.NewNop(),
+		Logger: *zap.NewNop(),
 		stats:  &WriteStatistics{},
 	}
 }
@@ -151,7 +151,7 @@ func (w *PointsWriter) Close() error {
 
 // WithLogger sets the Logger on w.
 func (w *PointsWriter) WithLogger(log zap.Logger) {
-	w.Logger = log.With(zap.String("service", "write"))
+	w.Logger = *log.With(zap.String("service", "write"))
 }
 
 // WriteStatistics keeps statistics related to the PointsWriter.

@@ -175,7 +175,7 @@ func (f FileStat) ContainsKey(key string) bool {
 
 // NewFileStore returns a new instance of FileStore based on the given directory.
 func NewFileStore(dir string) *FileStore {
-	logger := zap.New(zap.NullEncoder())
+	logger := *zap.NewNop()
 	fs := &FileStore{
 		dir:          dir,
 		lastModified: time.Time{},
@@ -201,7 +201,7 @@ func (f *FileStore) enableTraceLogging(enabled bool) {
 
 // WithLogger sets the logger on the file store.
 func (f *FileStore) WithLogger(log zap.Logger) {
-	f.logger = log.With(zap.String("service", "filestore"))
+	f.logger = *log.With(zap.String("service", "filestore"))
 	f.purger.logger = f.logger
 
 	if f.traceLogging {

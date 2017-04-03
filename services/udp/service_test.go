@@ -2,7 +2,6 @@ package udp
 
 import (
 	"errors"
-	"os"
 	"testing"
 	"time"
 
@@ -143,13 +142,13 @@ func NewTestService(c *Config) *TestService {
 		MetaClient: &internal.MetaClientMock{},
 	}
 
-	if testing.Verbose() {
-		service.Service.WithLogger(zap.New(
-			zap.NewTextEncoder(),
-			zap.Output(os.Stderr),
-		))
-	}
-
+	// if testing.Verbose() {
+	// 	service.Service.WithLogger(zap.New(
+	// 		zap.NewTextEncoder(),
+	// 		zap.Output(os.Stderr),
+	// 	))
+	// }
+	service.Service.WithLogger(*getLogger(testing.Verbose()))
 	service.Service.MetaClient = service.MetaClient
 	service.Service.PointsWriter = service
 	return service
@@ -157,4 +156,19 @@ func NewTestService(c *Config) *TestService {
 
 func (s *TestService) WritePoints(database, retentionPolicy string, consistencyLevel models.ConsistencyLevel, points []models.Point) error {
 	return s.WritePointsFn(database, retentionPolicy, consistencyLevel, points)
+}
+
+func getLogger(verbose bool) *zap.Logger {
+	var z *zap.Logger
+	var err error
+	if verbose {
+		z, err = zap.NewDevelopment()
+	} else {
+		z, err = zap.NewProduction()
+	}
+
+	if err != nil {
+		panic(err)
+	}
+	return z
 }

@@ -51,7 +51,7 @@ type Store struct {
 func NewStore(path string) *Store {
 	opts := NewEngineOptions()
 
-	logger := zap.New(zap.NullEncoder())
+	logger := *zap.NewNop()
 	return &Store{
 		path:          path,
 		EngineOptions: opts,
@@ -63,7 +63,7 @@ func NewStore(path string) *Store {
 // WithLogger sets the logger for the store.
 func (s *Store) WithLogger(log zap.Logger) {
 	s.baseLogger = log
-	s.Logger = log.With(zap.String("service", "store"))
+	s.Logger = *log.With(zap.String("service", "store"))
 	for _, sh := range s.shards {
 		sh.WithLogger(s.baseLogger)
 	}

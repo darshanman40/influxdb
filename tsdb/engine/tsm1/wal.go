@@ -110,7 +110,7 @@ type WAL struct {
 
 // NewWAL initializes a new WAL at the given directory.
 func NewWAL(path string) *WAL {
-	logger := zap.New(zap.NullEncoder())
+	logger := *zap.NewNop()
 	return &WAL{
 		path: path,
 
@@ -134,7 +134,7 @@ func (l *WAL) enableTraceLogging(enabled bool) {
 
 // WithLogger sets the WAL's logger.
 func (l *WAL) WithLogger(log zap.Logger) {
-	l.logger = log.With(zap.String("service", "wal"))
+	l.logger = *log.With(zap.String("service", "wal"))
 
 	if l.traceLogging {
 		l.traceLogger = l.logger

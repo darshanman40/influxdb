@@ -475,7 +475,7 @@ func writeTestData(s *Server, t *Test) error {
 		if res, err := s.Write(w.db, w.rp, w.data, t.params); err != nil {
 			return fmt.Errorf("write #%d: %s", i, err)
 		} else if t.exp != res {
-			return fmt.Errorf("unexpected results\nexp: %s\ngot: %s\n", t.exp, res)
+			return fmt.Errorf("unexpected results\nexp: %s\ngot: %s", t.exp, res)
 		}
 	}
 
@@ -485,6 +485,8 @@ func writeTestData(s *Server, t *Test) error {
 func configureLogging(s *Server) {
 	// Set the logger to discard unless verbose is on
 	if !testing.Verbose() {
-		s.SetLogOutput(ioutil.Discard)
-	}
+		s.SetLogOutput("stderr")
+	} //else {
+	// s.SetLogOutput("stderr")
+	// }
 }

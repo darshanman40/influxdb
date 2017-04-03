@@ -93,7 +93,7 @@ func NewService(c Config) (*Service, error) {
 		batchSize:       d.BatchSize,
 		batchPending:    d.BatchPending,
 		batchTimeout:    time.Duration(d.BatchTimeout),
-		Logger:          zap.NewNop(),
+		Logger:          *zap.NewNop(),
 		LogPointErrors:  d.LogPointErrors,
 		stats:           &Statistics{},
 		defaultTags:     models.StatisticTags{"bind": d.BindAddress},
@@ -222,7 +222,7 @@ func (s *Service) createInternalStorage() error {
 
 // WithLogger sets the logger for the service.
 func (s *Service) WithLogger(log zap.Logger) {
-	s.Logger = log.With(zap.String("service", "opentsdb"))
+	s.Logger = *log.With(zap.String("service", "opentsdb"))
 }
 
 // Statistics maintains statistics for the subscriber service.

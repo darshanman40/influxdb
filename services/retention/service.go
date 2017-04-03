@@ -35,7 +35,7 @@ func NewService(c Config) *Service {
 	return &Service{
 		checkInterval: time.Duration(c.CheckInterval),
 		done:          make(chan struct{}),
-		logger:        zap.NewNop(),
+		logger:        *zap.NewNop(),
 	}
 }
 
@@ -58,7 +58,7 @@ func (s *Service) Close() error {
 
 // WithLogger sets the logger on the service.
 func (s *Service) WithLogger(log zap.Logger) {
-	s.logger = log.With(zap.String("service", "retention"))
+	s.logger = *log.With(zap.String("service", "retention"))
 }
 
 func (s *Service) deleteShardGroups() {

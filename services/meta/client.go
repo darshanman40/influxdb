@@ -77,7 +77,7 @@ func NewClient(config *Config) *Client {
 		},
 		closing:             make(chan struct{}),
 		changed:             make(chan struct{}),
-		logger:              zap.NewNop(),
+		logger:              *zap.NewNop(),
 		authCache:           make(map[string]authUser, 0),
 		path:                config.Dir,
 		retentionAutoCreate: config.RetentionAutoCreate,
@@ -995,7 +995,7 @@ func (c *Client) MarshalBinary() ([]byte, error) {
 func (c *Client) WithLogger(log zap.Logger) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
-	c.logger = log.With(zap.String("service", "metaclient"))
+	c.logger = *log.With(zap.String("service", "metaclient"))
 }
 
 func (c *Client) updateAuthCache() {

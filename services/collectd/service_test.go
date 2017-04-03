@@ -4,7 +4,6 @@ import (
 	"encoding/hex"
 	"errors"
 	"net"
-	"os"
 	"strings"
 	"testing"
 	"time"
@@ -299,12 +298,19 @@ func NewTestService(batchSize int, batchDuration time.Duration) *TestService {
 		panic(err)
 	}
 
+	var z *zap.Logger
+	var err error
 	if testing.Verbose() {
-		s.Service.WithLogger(zap.New(
-			zap.NewTextEncoder(),
-			zap.Output(os.Stderr),
-		))
+		z, err = zap.NewDevelopment()
+	} else {
+		z, err = zap.NewProduction()
 	}
+
+	if err != nil {
+		panic(err)
+		// b.Fatalf("initiating logger failed: %v", err)
+	}
+	s.Service.WithLogger(*z)
 
 	return s
 }

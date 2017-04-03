@@ -82,7 +82,7 @@ func New(r Reporter, c Config) *Monitor {
 		storeDatabase:        c.StoreDatabase,
 		storeInterval:        time.Duration(c.StoreInterval),
 		storeRetentionPolicy: MonitorRetentionPolicy,
-		Logger:               zap.NewNop(),
+		Logger:               *zap.NewNop(),
 	}
 }
 
@@ -186,7 +186,7 @@ func (m *Monitor) SetPointsWriter(pw PointsWriter) error {
 
 // WithLogger sets the logger for the Monitor.
 func (m *Monitor) WithLogger(log zap.Logger) {
-	m.Logger = log.With(zap.String("service", "monitor"))
+	m.Logger = *log.With(zap.String("service", "monitor"))
 }
 
 // RegisterDiagnosticsClient registers a diagnostics client with the given name and tags.
