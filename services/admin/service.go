@@ -1,4 +1,4 @@
-package admin // import "github.com/influxdb/services/admin"
+package admin // import "github.com/darshanman40/influxdb/services/admin"
 
 import (
 	"crypto/tls"
@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	// Register static assets via statik.
-	_ "github.com/influxdb/services/admin/statik"
+	_ "github.com/darshanman40/influxdb/services/admin/statik"
 	"github.com/rakyll/statik/fs"
 	"go.uber.org/zap"
 )

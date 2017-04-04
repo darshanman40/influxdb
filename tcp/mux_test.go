@@ -12,7 +12,7 @@ import (
 	"testing/quick"
 	"time"
 
-	"github.com/influxdb/tcp"
+	"github.com/darshanman40/influxdb/tcp"
 )
 
 // Ensure the muxer can split a listener's connections across multiple listeners.

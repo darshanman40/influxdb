@@ -70,7 +70,7 @@ function run_test_docker {
 
     docker run \
          --rm=$DOCKER_RM \
-         -v "$DIR:/root/go/src/github.com/influxdb" \
+         -v "$DIR:/root/go/src/github.com/darshanman40/influxdb" \
          -e "INFLUXDB_DATA_ENGINE=$INFLUXDB_DATA_ENGINE" \
          -e "GORACE=$GORACE" \
          -e "GO_CHECKOUT=$GO_CHECKOUT" \

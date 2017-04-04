@@ -1,5 +1,5 @@
 // Package precreator provides the shard precreation service.
-package precreator // import "github.com/influxdb/services/precreator"
+package precreator // import "github.com/darshanman40/influxdb/services/precreator"
 
 import (
 	"fmt"

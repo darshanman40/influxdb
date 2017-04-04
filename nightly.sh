@@ -41,11 +41,11 @@ echo "Using $REPO_DIR for all work..."
 
 cd $REPO_DIR
 export GOPATH=`pwd`
-mkdir -p $GOPATH/src/github.com/influxdb
-cd $GOPATH/src/github.com/influxdb
-git clone https://github.com/influxdb.git
+mkdir -p $GOPATH/src/github.com/darshanman40/influxdb
+cd $GOPATH/src/github.com/darshanman40/influxdb
+git clone https://github.com/darshanman40/influxdb.git
 
-cd $GOPATH/src/github.com/influxdb
+cd $GOPATH/src/github.com/darshanman40/influxdb
 VERSION="$MASTER_VERSION-nightly-`git log --pretty=format:'%h' -n 1`"
 NIGHTLY_BUILD=true ./package.sh $race $VERSION
 

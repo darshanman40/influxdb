@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/influxdb/services/httpd"
+	"github.com/darshanman40/influxdb/services/httpd"
 )
 
 type fakeListener struct {

@@ -8,7 +8,7 @@ import (
 	"sort"
 	"time"
 
-	influx "github.com/influxdb/client/v2"
+	influx "github.com/darshanman40/influxdb/client/v2"
 )
 
 // TODO: Refactor this file to utilize a common interface

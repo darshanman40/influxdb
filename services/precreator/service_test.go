@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/influxdb/toml"
+	"github.com/darshanman40/influxdb/toml"
 )
 
 func Test_ShardPrecreation(t *testing.T) {

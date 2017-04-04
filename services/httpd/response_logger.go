@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/influxdb/influxql"
+	"github.com/darshanman40/influxdb/influxql"
 )
 
 // responseLogger is wrapper of http.ResponseWriter that keeps track of its HTTP status

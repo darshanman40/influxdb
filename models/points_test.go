@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/influxdb/models"
+	"github.com/darshanman40/influxdb/models"
 )
 
 var (

@@ -5,8 +5,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/influxdb/cmd/influx_tsm/stats"
-	"github.com/influxdb/tsdb/engine/tsm1"
+	"github.com/darshanman40/influxdb/cmd/influx_tsm/stats"
+	"github.com/darshanman40/influxdb/tsdb/engine/tsm1"
 )
 
 const (

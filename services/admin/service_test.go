@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/influxdb/services/admin"
+	"github.com/darshanman40/influxdb/services/admin"
 )
 
 // Ensure service can serve the root index page of the admin.

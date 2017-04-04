@@ -234,7 +234,7 @@ Usage: influxd run [flags]
             Write CPU profiling information to a file.
     -memprofile <path>
             Write memory usage information to a file.
-		-logprofile <path>
+		-logprofile [dev|prod]
 						define logger for appropriate level.
 `
 

@@ -1,12 +1,12 @@
 // Package retention provides the retention policy enforcement service.
-package retention // import "github.com/influxdb/services/retention"
+package retention // import "github.com/darshanman40/influxdb/services/retention"
 
 import (
 	"fmt"
 	"sync"
 	"time"
 
-	"github.com/influxdb/services/meta"
+	"github.com/darshanman40/influxdb/services/meta"
 	"go.uber.org/zap"
 )
 

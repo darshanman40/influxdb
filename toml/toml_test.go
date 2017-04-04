@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/BurntSushi/toml"
-	"github.com/influxdb/cmd/influxd/run"
-	itoml "github.com/influxdb/toml"
+	"github.com/darshanman40/influxdb/cmd/influxd/run"
+	itoml "github.com/darshanman40/influxdb/toml"
 )
 
 // Ensure that megabyte sizes can be parsed.

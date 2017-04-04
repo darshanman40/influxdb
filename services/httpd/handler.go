@@ -20,13 +20,13 @@ import (
 
 	"github.com/bmizerany/pat"
 	"github.com/dgrijalva/jwt-go"
-	"github.com/influxdb"
-	"github.com/influxdb/influxql"
-	"github.com/influxdb/models"
-	"github.com/influxdb/monitor"
-	"github.com/influxdb/services/meta"
-	"github.com/influxdb/tsdb"
-	"github.com/influxdb/uuid"
+	"github.com/darshanman40/influxdb"
+	"github.com/darshanman40/influxdb/influxql"
+	"github.com/darshanman40/influxdb/models"
+	"github.com/darshanman40/influxdb/monitor"
+	"github.com/darshanman40/influxdb/services/meta"
+	"github.com/darshanman40/influxdb/tsdb"
+	"github.com/darshanman40/influxdb/uuid"
 	"go.uber.org/zap"
 )
 

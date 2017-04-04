@@ -5,8 +5,8 @@ package coordinator
 import (
 	"time"
 
-	"github.com/influxdb/influxql"
-	"github.com/influxdb/toml"
+	"github.com/darshanman40/influxdb/influxql"
+	"github.com/darshanman40/influxdb/toml"
 )
 
 const (

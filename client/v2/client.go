@@ -1,5 +1,5 @@
 // Package client (v2) is the current official Go client for InfluxDB.
-package client // import "github.com/influxdb/client/v2"
+package client // import "github.com/darshanman40/influxdb/client/v2"
 
 import (
 	"bytes"
@@ -12,8 +12,8 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/influxdb/client/v2/internal"
-	"github.com/influxdb/models"
+	"github.com/darshanman40/influxdb/client/v2/internal"
+	"github.com/darshanman40/influxdb/models"
 )
 
 var protoData internal.Results

@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/BurntSushi/toml"
-	"github.com/influxdb/services/admin"
+	"github.com/darshanman40/influxdb/services/admin"
 )
 
 func TestConfig_Parse(t *testing.T) {

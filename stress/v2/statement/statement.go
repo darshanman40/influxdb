@@ -4,7 +4,7 @@ import (
 	"log"
 	"strconv"
 
-	"github.com/influxdb/stress/v2/stress_client"
+	"github.com/darshanman40/influxdb/stress/v2/stress_client"
 )
 
 // Statement is the common interface to shape the testing environment and prepare database requests

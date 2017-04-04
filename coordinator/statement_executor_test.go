@@ -11,12 +11,12 @@ import (
 	"time"
 
 	"github.com/davecgh/go-spew/spew"
-	"github.com/influxdb/coordinator"
-	"github.com/influxdb/influxql"
-	"github.com/influxdb/internal"
-	"github.com/influxdb/models"
-	"github.com/influxdb/services/meta"
-	"github.com/influxdb/tsdb"
+	"github.com/darshanman40/influxdb/coordinator"
+	"github.com/darshanman40/influxdb/influxql"
+	"github.com/darshanman40/influxdb/internal"
+	"github.com/darshanman40/influxdb/models"
+	"github.com/darshanman40/influxdb/services/meta"
+	"github.com/darshanman40/influxdb/tsdb"
 	"go.uber.org/zap"
 )
 

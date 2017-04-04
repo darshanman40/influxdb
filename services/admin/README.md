@@ -14,8 +14,8 @@ The only step required to bundle the admin UI with InfluxDB is to create a compr
 
 ```
 go get github.com/rakyll/statik  # make sure $GOPATH/bin is listed in your PATH
-cd $GOPATH/src/github.com/influxdb
-go generate github.com/influxdb/services/admin
+cd $GOPATH/src/github.com/darshanman40/influxdb
+go generate github.com/darshanman40/influxdb/services/admin
 ```
 
 The `go generate ./...` command will run `statik` to generate the `statik/statik.go` file. The generated `go` file will embed the admin interface assets into the InfluxDB binary.

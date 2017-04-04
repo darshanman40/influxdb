@@ -15,9 +15,9 @@ import (
 	"time"
 
 	"github.com/gogo/protobuf/proto"
-	"github.com/influxdb/influxql"
-	"github.com/influxdb/models"
-	internal "github.com/influxdb/tsdb/internal"
+	"github.com/darshanman40/influxdb/influxql"
+	"github.com/darshanman40/influxdb/models"
+	internal "github.com/darshanman40/influxdb/tsdb/internal"
 	"go.uber.org/zap"
 )
 

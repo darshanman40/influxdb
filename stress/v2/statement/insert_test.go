@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/influxdb/stress/v2/stress_client"
+	"github.com/darshanman40/influxdb/stress/v2/stress_client"
 )
 
 func TestInsertSetID(t *testing.T) {

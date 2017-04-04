@@ -3,7 +3,7 @@ package udp
 import (
 	"time"
 
-	"github.com/influxdb/toml"
+	"github.com/darshanman40/influxdb/toml"
 )
 
 const (

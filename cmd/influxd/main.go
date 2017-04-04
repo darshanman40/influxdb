@@ -11,11 +11,11 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/influxdb/cmd"
-	"github.com/influxdb/cmd/influxd/backup"
-	"github.com/influxdb/cmd/influxd/help"
-	"github.com/influxdb/cmd/influxd/restore"
-	"github.com/influxdb/cmd/influxd/run"
+	"github.com/darshanman40/influxdb/cmd"
+	"github.com/darshanman40/influxdb/cmd/influxd/backup"
+	"github.com/darshanman40/influxdb/cmd/influxd/help"
+	"github.com/darshanman40/influxdb/cmd/influxd/restore"
+	"github.com/darshanman40/influxdb/cmd/influxd/run"
 	"go.uber.org/zap"
 )
 

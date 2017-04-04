@@ -9,7 +9,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/influxdb/stress/v2/stress_client"
+	"github.com/darshanman40/influxdb/stress/v2/stress_client"
 )
 
 // InsertStatement is a Statement Implementation that creates points to be written to the target InfluxDB instance

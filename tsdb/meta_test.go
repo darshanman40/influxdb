@@ -6,9 +6,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/influxdb/influxql"
-	"github.com/influxdb/models"
-	"github.com/influxdb/tsdb"
+	"github.com/darshanman40/influxdb/influxql"
+	"github.com/darshanman40/influxdb/models"
+	"github.com/darshanman40/influxdb/tsdb"
 )
 
 // Test comparing SeriesIDs for equality.

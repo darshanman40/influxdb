@@ -23,7 +23,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/influxdb/tsdb"
+	"github.com/darshanman40/influxdb/tsdb"
 )
 
 const maxTSMFileSize = uint32(2048 * 1024 * 1024) // 2GB

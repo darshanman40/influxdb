@@ -6,7 +6,7 @@
 
 ###### Required only if applicable
 _You can erase any checkboxes below this note if they are not applicable to your Pull Request._
-- [ ] [InfluxQL Spec](https://github.com/influxdb/blob/master/influxql/README.md) updated
+- [ ] [InfluxQL Spec](https://github.com/darshanman40/influxdb/blob/master/influxql/README.md) updated
 - [ ] Provide example syntax
 - [ ] Update man page when modifying a command
-- [ ] [InfluxData Documentation](https://github.com/influxdb/docs.influxdata.com): issue filed or pull request submitted \<link to issue or pull request\>
+- [ ] [InfluxData Documentation](https://github.com/darshanman40/influxdb/docs.influxdata.com): issue filed or pull request submitted \<link to issue or pull request\>

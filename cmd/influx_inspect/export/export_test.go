@@ -13,7 +13,7 @@ import (
 	"testing"
 
 	"github.com/golang/snappy"
-	"github.com/influxdb/tsdb/engine/tsm1"
+	"github.com/darshanman40/influxdb/tsdb/engine/tsm1"
 )
 
 type corpus map[string][]tsm1.Value

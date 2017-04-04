@@ -1,4 +1,4 @@
-// Command influx_stress is deprecated; use github.com/influxdb/influx-stress instead.
+// Command influx_stress is deprecated; use github.com/darshanman40/influxdb/influx-stress instead.
 package main
 
 import (
@@ -8,8 +8,8 @@ import (
 	"os"
 	"runtime/pprof"
 
-	"github.com/influxdb/stress"
-	v2 "github.com/influxdb/stress/v2"
+	"github.com/darshanman40/influxdb/stress"
+	v2 "github.com/darshanman40/influxdb/stress/v2"
 )
 
 var (

@@ -4,7 +4,7 @@ import (
 	"math"
 	"testing"
 
-	"github.com/influxdb/influxql/neldermead"
+	"github.com/darshanman40/influxdb/influxql/neldermead"
 )
 
 func round(num float64, precision float64) float64 {

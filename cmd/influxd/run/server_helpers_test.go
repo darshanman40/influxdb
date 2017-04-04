@@ -16,10 +16,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/influxdb/cmd/influxd/run"
-	"github.com/influxdb/services/httpd"
-	"github.com/influxdb/services/meta"
-	"github.com/influxdb/toml"
+	"github.com/darshanman40/influxdb/cmd/influxd/run"
+	"github.com/darshanman40/influxdb/services/httpd"
+	"github.com/darshanman40/influxdb/services/meta"
+	"github.com/darshanman40/influxdb/toml"
 )
 
 const emptyResults = `{"results":[{}]}`

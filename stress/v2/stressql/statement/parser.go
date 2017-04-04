@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/influxdb/stress/v2/statement"
+	"github.com/darshanman40/influxdb/stress/v2/statement"
 )
 
 // Token represents a lexical token.

@@ -11,7 +11,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/influxdb/client/v2"
+	"github.com/darshanman40/influxdb/client/v2"
 )
 
 const backoffInterval = time.Duration(500 * time.Millisecond)

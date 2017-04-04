@@ -1,5 +1,5 @@
 // Package opentsdb provides a service for InfluxDB to ingest data via the opentsdb protocol.
-package opentsdb // import "github.com/influxdb/services/opentsdb"
+package opentsdb // import "github.com/darshanman40/influxdb/services/opentsdb"
 
 import (
 	"bufio"
@@ -16,9 +16,9 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/influxdb/models"
-	"github.com/influxdb/services/meta"
-	"github.com/influxdb/tsdb"
+	"github.com/darshanman40/influxdb/models"
+	"github.com/darshanman40/influxdb/services/meta"
+	"github.com/darshanman40/influxdb/tsdb"
 	"go.uber.org/zap"
 )
 

@@ -8,8 +8,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/influxdb/models"
-	"github.com/influxdb/tsdb"
+	"github.com/darshanman40/influxdb/models"
+	"github.com/darshanman40/influxdb/tsdb"
 	"go.uber.org/zap"
 )
 

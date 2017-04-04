@@ -9,8 +9,8 @@ import (
 	"time"
 
 	"github.com/gogo/protobuf/proto"
-	"github.com/influxdb/models"
-	"github.com/influxdb/services/httpd/internal"
+	"github.com/darshanman40/influxdb/models"
+	"github.com/darshanman40/influxdb/services/httpd/internal"
 )
 
 // ResponseWriter is an interface for writing a response.

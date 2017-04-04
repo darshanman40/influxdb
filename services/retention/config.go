@@ -4,7 +4,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/influxdb/toml"
+	"github.com/darshanman40/influxdb/toml"
 )
 
 // Config represents the configuration for the retention service.

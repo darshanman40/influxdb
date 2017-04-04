@@ -5,9 +5,9 @@ import (
 	"log"
 	"time"
 
-	influx "github.com/influxdb/client/v2"
-	"github.com/influxdb/stress/v2/stress_client"
-	"github.com/influxdb/stress/v2/stressql"
+	influx "github.com/darshanman40/influxdb/client/v2"
+	"github.com/darshanman40/influxdb/stress/v2/stress_client"
+	"github.com/darshanman40/influxdb/stress/v2/stressql"
 )
 
 // RunStress takes a configFile and kicks off the stress test

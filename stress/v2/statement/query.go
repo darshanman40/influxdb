@@ -5,8 +5,8 @@ import (
 	"log"
 	"time"
 
-	"github.com/influxdb/models"
-	"github.com/influxdb/stress/v2/stress_client"
+	"github.com/darshanman40/influxdb/models"
+	"github.com/darshanman40/influxdb/stress/v2/stress_client"
 )
 
 // QueryStatement is a Statement Implementation to run queries on the target InfluxDB instance

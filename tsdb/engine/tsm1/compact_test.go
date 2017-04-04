@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/influxdb/models"
-	"github.com/influxdb/tsdb/engine/tsm1"
+	"github.com/darshanman40/influxdb/models"
+	"github.com/darshanman40/influxdb/tsdb/engine/tsm1"
 )
 
 //  Tests compacting a Cache snapshot into a single TSM file

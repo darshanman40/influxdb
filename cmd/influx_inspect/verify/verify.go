@@ -11,7 +11,7 @@ import (
 	"text/tabwriter"
 	"time"
 
-	"github.com/influxdb/tsdb/engine/tsm1"
+	"github.com/darshanman40/influxdb/tsdb/engine/tsm1"
 )
 
 // Command represents the program execution for "influx_inspect verify".

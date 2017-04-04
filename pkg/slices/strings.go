@@ -1,5 +1,5 @@
 // Package slices contains functions to operate on slices treated as sets.
-package slices // import "github.com/influxdb/pkg/slices"
+package slices // import "github.com/darshanman40/influxdb/pkg/slices"
 
 import "strings"
 

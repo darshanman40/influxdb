@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/influxdb/models"
+	"github.com/darshanman40/influxdb/models"
 )
 
 // Emitter groups values together by name, tags, and time.

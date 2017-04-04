@@ -1,6 +1,6 @@
 // Package subscriber implements the subscriber service
 // to forward incoming data to remote services.
-package subscriber // import "github.com/influxdb/services/subscriber"
+package subscriber // import "github.com/darshanman40/influxdb/services/subscriber"
 
 import (
 	"errors"
@@ -10,10 +10,10 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/influxdb/coordinator"
-	"github.com/influxdb/models"
-	"github.com/influxdb/monitor"
-	"github.com/influxdb/services/meta"
+	"github.com/darshanman40/influxdb/coordinator"
+	"github.com/darshanman40/influxdb/models"
+	"github.com/darshanman40/influxdb/monitor"
+	"github.com/darshanman40/influxdb/services/meta"
 	"go.uber.org/zap"
 )
 

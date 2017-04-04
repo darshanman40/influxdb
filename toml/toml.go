@@ -1,5 +1,5 @@
 // Package toml adds support to marshal and unmarshal types not in the official TOML spec.
-package toml // import "github.com/influxdb/toml"
+package toml // import "github.com/darshanman40/influxdb/toml"
 
 import (
 	"fmt"

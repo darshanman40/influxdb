@@ -5,9 +5,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/influxdb/internal"
-	"github.com/influxdb/models"
-	"github.com/influxdb/services/meta"
+	"github.com/darshanman40/influxdb/internal"
+	"github.com/darshanman40/influxdb/models"
+	"github.com/darshanman40/influxdb/services/meta"
 	"go.uber.org/zap"
 )
 

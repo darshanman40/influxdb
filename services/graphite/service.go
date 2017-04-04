@@ -1,5 +1,5 @@
 // Package graphite provides a service for InfluxDB to ingest data via the graphite protocol.
-package graphite // import "github.com/influxdb/services/graphite"
+package graphite // import "github.com/darshanman40/influxdb/services/graphite"
 
 import (
 	"bufio"
@@ -11,10 +11,10 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/influxdb/models"
-	"github.com/influxdb/monitor/diagnostics"
-	"github.com/influxdb/services/meta"
-	"github.com/influxdb/tsdb"
+	"github.com/darshanman40/influxdb/models"
+	"github.com/darshanman40/influxdb/monitor/diagnostics"
+	"github.com/darshanman40/influxdb/services/meta"
+	"github.com/darshanman40/influxdb/tsdb"
 	"go.uber.org/zap"
 )
 

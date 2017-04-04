@@ -7,13 +7,13 @@ import (
 	"log"
 	"os"
 
-	"github.com/influxdb/cmd"
-	"github.com/influxdb/cmd/influx_inspect/dumptsm"
-	"github.com/influxdb/cmd/influx_inspect/export"
-	"github.com/influxdb/cmd/influx_inspect/help"
-	"github.com/influxdb/cmd/influx_inspect/report"
-	"github.com/influxdb/cmd/influx_inspect/verify"
-	_ "github.com/influxdb/tsdb/engine"
+	"github.com/darshanman40/influxdb/cmd"
+	"github.com/darshanman40/influxdb/cmd/influx_inspect/dumptsm"
+	"github.com/darshanman40/influxdb/cmd/influx_inspect/export"
+	"github.com/darshanman40/influxdb/cmd/influx_inspect/help"
+	"github.com/darshanman40/influxdb/cmd/influx_inspect/report"
+	"github.com/darshanman40/influxdb/cmd/influx_inspect/verify"
+	_ "github.com/darshanman40/influxdb/tsdb/engine"
 )
 
 func main() {

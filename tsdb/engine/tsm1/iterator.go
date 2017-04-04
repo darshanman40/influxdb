@@ -3,7 +3,7 @@ package tsm1
 import (
 	"fmt"
 
-	"github.com/influxdb/influxql"
+	"github.com/darshanman40/influxdb/influxql"
 )
 
 func newLimitIterator(input influxql.Iterator, opt influxql.IteratorOptions) influxql.Iterator {

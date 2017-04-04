@@ -1,5 +1,5 @@
 // Package tcp provides a simple multiplexer over TCP.
-package tcp // import "github.com/influxdb/tcp"
+package tcp // import "github.com/darshanman40/influxdb/tcp"
 
 import (
 	"errors"

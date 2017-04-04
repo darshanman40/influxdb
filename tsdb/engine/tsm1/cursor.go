@@ -3,7 +3,7 @@ package tsm1
 import (
 	"math"
 
-	"github.com/influxdb/tsdb"
+	"github.com/darshanman40/influxdb/tsdb"
 )
 
 // multieFieldCursor wraps cursors for multiple fields on the same series

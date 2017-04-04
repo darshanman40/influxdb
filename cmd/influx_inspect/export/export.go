@@ -16,10 +16,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/influxdb/influxql"
-	"github.com/influxdb/models"
-	"github.com/influxdb/pkg/escape"
-	"github.com/influxdb/tsdb/engine/tsm1"
+	"github.com/darshanman40/influxdb/influxql"
+	"github.com/darshanman40/influxdb/models"
+	"github.com/darshanman40/influxdb/pkg/escape"
+	"github.com/darshanman40/influxdb/tsdb/engine/tsm1"
 )
 
 // Command represents the program execution for "influx_inspect export".

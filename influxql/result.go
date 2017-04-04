@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/influxdb/models"
+	"github.com/darshanman40/influxdb/models"
 )
 
 const (

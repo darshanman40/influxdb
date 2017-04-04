@@ -6,7 +6,7 @@ import (
 	"net"
 	"time"
 
-	"github.com/influxdb/client/v2/internal"
+	"github.com/darshanman40/influxdb/client/v2/internal"
 )
 
 const (

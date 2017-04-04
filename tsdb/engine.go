@@ -8,8 +8,8 @@ import (
 	"sort"
 	"time"
 
-	"github.com/influxdb/influxql"
-	"github.com/influxdb/models"
+	"github.com/darshanman40/influxdb/influxql"
+	"github.com/darshanman40/influxdb/models"
 	"go.uber.org/zap"
 )
 

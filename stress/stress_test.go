@@ -12,8 +12,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/influxdb/client/v2"
-	"github.com/influxdb/models"
+	"github.com/darshanman40/influxdb/client/v2"
+	"github.com/darshanman40/influxdb/models"
 )
 
 func TestTimer_StartTimer(t *testing.T) {
